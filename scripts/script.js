@@ -23,10 +23,10 @@ function getRandomFaces() {
 function generateFaces() {
   faces = []
   for (i = 0; i < n; i++) {
-    let img = new Image()
+    const img = new Image()
     img.onload = function() {
-      let scaleWidth = img.width * scaleRatio
-      let scaleHeight = img.height * scaleRatio
+      const scaleWidth = img.width * scaleRatio
+      const scaleHeight = img.height * scaleRatio
       let osmond = {
         width: scaleWidth,
         height: scaleHeight,
@@ -39,7 +39,7 @@ function generateFaces() {
 
       osmond.vx = Math.random() >= 0.5 ? -osmond.vx : osmond.vx
       osmond.vy = Math.random() >= 0.5 ? -osmond.vy : osmond.vy
-
+      console.count('hmm')
       faces.push(osmond)
     }
     img.src = getRandomFaces()
@@ -54,7 +54,6 @@ function onResize() {
 
 window.onresize = onResize
 onResize()
-generateFaces()
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
