@@ -82,7 +82,7 @@ function draw() {
 
     if (osmond.x <= 0) {
       osmond.vx = -1 * osmond.vx
-      osmond.x = 0;
+      osmond.x = 0
     }
 
     ctx.drawImage(osmond.img, osmond.x, osmond.y, osmond.width, osmond.height)
