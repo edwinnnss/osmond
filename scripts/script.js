@@ -11,7 +11,7 @@ const randomConfig = {
   IMAGES_PREFIX: './images/',
   IMAGES_SUFFIX: '.png',
   MIN: 1,
-  MAX: 2,
+  MAX: 3,
 }
 
 function getRandomFaces() {
@@ -65,12 +65,24 @@ function draw() {
     osmond.x += osmond.vx
     osmond.y += osmond.vy
 
-    if (osmond.y + osmond.height >= canvas.height || osmond.y <= 0) {
+    if (osmond.y + osmond.height >= canvas.height) {
       osmond.vy = -1 * osmond.vy
+      osmond.y = canvas.height - osmond.height
     }
 
-    if (osmond.x + osmond.width >= canvas.width || osmond.x <= 0) {
+    if (osmond.y <= 0) {
+      osmond.vy = -1 * osmond.vy
+      osmond.y = 0
+    }
+
+    if (osmond.x + osmond.width >= canvas.width) {
       osmond.vx = -1 * osmond.vx
+      osmond.x = canvas.width - osmond.width
+    }
+
+    if (osmond.x <= 0) {
+      osmond.vx = -1 * osmond.vx
+      osmond.x = 0;
     }
 
     ctx.drawImage(osmond.img, osmond.x, osmond.y, osmond.width, osmond.height)
