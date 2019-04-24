@@ -1,19 +1,32 @@
 const defaultN = 20
 
-let osmonds = []
+let faces = []
 const urlParams = new URLSearchParams(window.location.search)
-let n = urlParams.get('n') || defaultN
-let canvas = document.getElementById('pt')
-let ctx = canvas.getContext('2d')
-let scaleRatio = 0.2
+const n = urlParams.get('n') || defaultN
+const canvas = document.getElementById('pt')
+const ctx = canvas.getContext('2d')
+const scaleRatio = 1
 
-function generateOsmonds() {
-  let img = new Image()
-  img.onload = function() {
-    osmonds = []
-    let scaleWidth = img.width * scaleRatio
-    let scaleHeight = img.height * scaleRatio
-    for (let i = 0; i < n; i++) {
+const randomConfig = {
+  IMAGES_PREFIX: './images/',
+  IMAGES_SUFFIX: '.png',
+  MIN: 1,
+  MAX: 2,
+}
+
+function getRandomFaces() {
+  const number = Math.floor(Math.random() * randomConfig.MAX + randomConfig.MIN)
+
+  return randomConfig.IMAGES_PREFIX + number + randomConfig.IMAGES_SUFFIX
+}
+
+function generateFaces() {
+  faces = []
+  for (i = 0; i < n; i++) {
+    let img = new Image()
+    img.onload = function() {
+      let scaleWidth = img.width * scaleRatio
+      let scaleHeight = img.height * scaleRatio
       let osmond = {
         width: scaleWidth,
         height: scaleHeight,
@@ -27,26 +40,26 @@ function generateOsmonds() {
       osmond.vx = Math.random() >= 0.5 ? -osmond.vx : osmond.vx
       osmond.vy = Math.random() >= 0.5 ? -osmond.vy : osmond.vy
 
-      osmonds.push(osmond)
+      faces.push(osmond)
     }
+    img.src = getRandomFaces()
   }
-  img.src = './cbimage.jpg'
 }
 
 function onResize() {
   canvas.width = window.innerWidth
   canvas.height = window.innerHeight
-  generateOsmonds()
+  generateFaces()
 }
 
 window.onresize = onResize
 onResize()
-generateOsmonds()
+generateFaces()
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-  osmonds.forEach(osmond => {
+  faces.forEach(osmond => {
     if (!osmond.img) {
       return
     }
