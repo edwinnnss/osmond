@@ -39,7 +39,6 @@ function generateFaces() {
 
       osmond.vx = Math.random() >= 0.5 ? -osmond.vx : osmond.vx
       osmond.vy = Math.random() >= 0.5 ? -osmond.vy : osmond.vy
-      console.count('hmm')
       faces.push(osmond)
     }
     img.src = getRandomFaces()
