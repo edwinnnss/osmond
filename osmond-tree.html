@@ -10,8 +10,8 @@
       const canvas = document.getElementById('pt')
       const ctx = canvas.getContext('2d')
       const scaleRatio = 0.25
-      const spreadRatio = 0.5
-      const maxDepth = 8
+      const spreadRatio = 0.6
+      const maxDepth = 7
       let imgs = []
 
       const imageConfig = {
@@ -45,6 +45,14 @@
       function branch(depth) {
         if (depth > maxDepth) { return }
 
+        ctx.beginPath()
+        ctx.strokeStyle = randomColor()
+        ctx.moveTo(0, 0)
+
+        ctx.lineTo(0, -30)
+        ctx.stroke()
+        ctx.translate(0, -30)
+
         // leaves using osmond img
         if (depth === maxDepth) {
           let osmond = imgs[Math.round(Math.random() * (imgs.length - 1))]
@@ -56,14 +64,6 @@
             osmond.height
           )
         } else {
-          ctx.beginPath()
-          ctx.strokeStyle = randomColor()
-          ctx.moveTo(0, 0)
-
-          ctx.lineTo(0, -30)
-          ctx.stroke()
-          ctx.translate(0, -30)
-
           if ((Math.random() * 1) < spreadRatio) {
             // left branches
             ctx.rotate(-0.35)
